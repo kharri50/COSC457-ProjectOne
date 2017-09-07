@@ -45,4 +45,10 @@ public class ResultReader {
         return columns;
     }
 
+    /* Just testing this */
+    public void getResultTable(){
+
+        return;
+    }
+
 }
