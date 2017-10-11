@@ -1,10 +1,7 @@
 /**
  * Created by kyleharris on 9/5/17.
  */
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * This class acts as an object to perform database connectivity
@@ -17,18 +14,42 @@ public class DBConnection {
 
     private Connection conn; // database connection instance variable
 
+    final String PUBLIC_DNS = "ec2-18-220-133-85.us-east-2.compute.amazonaws.com";
+    final String PORT = "3306";
+    final String DATABASE = "exsurfacepro";
+    final String DBUSER = "root";
+    final String DBPASS = "cosc457!";
 
 
-    public void connectToDatabase(String cxn_url ,String username, String password) {
+    public void connectToDatabase() {
+
         try {
-            // example db url : "jdbc:mysql://localhost/lahman2016";
-            Class.forName ("com.mysql.jdbc.Driver").newInstance ();
-            String DB_URL = cxn_url;
-            this.conn = DriverManager.getConnection(DB_URL, username , password);
-        } catch (Exception e) {
-            // print the error
-            System.out.println(e.getMessage());
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Where is your MySQL JDBC Driver?");
+            e.printStackTrace();
         }
+
+        System.out.println("MySQL JDBC Driver Registered!");
+        Connection connection = null;
+
+        try {
+            connection = DriverManager.
+                    getConnection("jdbc:mysql://" + PUBLIC_DNS + ":" + PORT + "/" + DATABASE, DBUSER, DBPASS);
+        } catch (SQLException e) {
+            System.out.println("Connection Failed!:\n" + e.getMessage());
+        }
+
+        if (connection != null) {
+            System.out.println("SUCCESS!!!! You made it, take control     your database now!");
+        } else {
+            System.out.println("FAILURE! Failed to make connection!");
+        }
+
+        // set the instance variable to the value of the new connecton
+        this.conn = connection;
+
+
     }
 
     /** The following function returns a ResultSet object after the
