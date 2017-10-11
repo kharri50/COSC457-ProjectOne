@@ -41,9 +41,9 @@ public class DBConnection {
         }
 
         if (connection != null) {
-            System.out.println("SUCCESS!!!! You made it, take control     your database now!");
+            System.out.println("Connection Status: SUCCESS");
         } else {
-            System.out.println("FAILURE! Failed to make connection!");
+            System.out.println("Connection Status: FAILED.");
         }
 
         // set the instance variable to the value of the new connecton
