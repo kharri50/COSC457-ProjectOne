@@ -35,7 +35,7 @@ public class ResultReader {
         try {
             int cols = this.rsmd.getColumnCount();
             // iterate for the coulmn count
-            for(int i = 1; i<cols; i++){
+            for(int i = 1; i<=cols; i++){
                 columns.add((String) rsmd.getColumnName(i));
             }
         }catch(java.sql.SQLException e){
